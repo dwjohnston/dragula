@@ -39,6 +39,7 @@ function dragula (initialContainers, options) {
   if (o.direction === void 0) { o.direction = 'vertical'; }
   if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
   if (o.mirrorContainer === void 0) { o.mirrorContainer = doc.body; }
+  if (o.allowCtrl === void 0) { o.allowCtrl = false;}
 
   var drake = emitter({
     containers: o.containers,
@@ -95,7 +96,7 @@ function dragula (initialContainers, options) {
     _moveX = e.clientX;
     _moveY = e.clientY;
 
-    var ignore = whichMouseButton(e) !== 1 || e.metaKey || e.ctrlKey;
+    var ignore = whichMouseButton(e) !== 1 || e.metaKey || (!o.allowCtrl && e.ctrlKey);
     if (ignore) {
       return; // we only care about honest-to-god left clicks and touch events
     }
